@@ -1,0 +1,148 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "RitePlain",
+  "scopeName": "text.riteplain",
+  "patterns": [
+    { "include": "#heading" },
+    { "include": "#bold" },
+    { "include": "#list" },
+    { "include": "#definition_list" },
+    { "include": "#link" },
+    { "include": "#image" },
+    { "include": "#video" },
+    { "include": "#supplement" },
+    { "include": "#horizontal_rule" },
+    { "include": "#comment" },
+    { "include": "#continuation" }
+  ],
+  "repository": {
+    "heading": {
+      "patterns": [
+        {
+          "name": "markup.heading.heading-1.riteplain",
+          "match": "^(#)\\s+(.*)$",
+          "captures": {
+            "1": { "name": "punctuation.definition.heading.riteplain" },
+            "2": { "name": "entity.name.section.riteplain" }
+          }
+        },
+        {
+          "name": "markup.heading.heading-2.riteplain",
+          "match": "^(##)\\s+(.*)$",
+          "captures": {
+            "1": { "name": "punctuation.definition.heading.riteplain" },
+            "2": { "name": "entity.name.section.riteplain" }
+          }
+        },
+        {
+          "name": "markup.heading.heading-3.riteplain",
+          "match": "^(###)\\s+(.*)$",
+          "captures": {
+            "1": { "name": "punctuation.definition.heading.riteplain" },
+            "2": { "name": "entity.name.section.riteplain" }
+          }
+        }
+      ]
+    },
+    "bold": {
+      "name": "markup.bold.riteplain",
+      "begin": "\\[\\[",
+      "end": "\\]\\]",
+      "beginCaptures": {
+        "0": { "name": "punctuation.definition.bold.begin.riteplain" }
+      },
+      "endCaptures": {
+        "0": { "name": "punctuation.definition.bold.end.riteplain" }
+      },
+      "patterns": [
+        {
+          "name": "markup.bold.riteplain",
+          "match": ".+?"
+        }
+      ]
+    },
+    "list": {
+      "patterns": [
+        {
+          "name": "markup.list.unordered.riteplain",
+          "match": "^(\\*+)\\s+(.*)$",
+          "captures": {
+            "1": { "name": "punctuation.definition.list.begin.riteplain" },
+            "2": { "name": "markup.list.unordered.riteplain" }
+          }
+        },
+        {
+          "name": "markup.list.ordered.riteplain",
+          "match": "^(\\.+)\\s+(.*)$",
+          "captures": {
+            "1": { "name": "punctuation.definition.list.begin.riteplain" },
+            "2": { "name": "markup.list.ordered.riteplain" }
+          }
+        }
+      ]
+    },
+    "definition_list": {
+      "match": "^([^:]+)(::)\\s+(.*)$",
+      "captures": {
+        "1": { "name": "entity.name.tag.riteplain" },
+        "2": { "name": "punctuation.definition.separator.riteplain" },
+        "3": { "name": "markup.list.definition.riteplain" }
+      }
+    },
+    "link": {
+      "begin": "^(link:)(https?://[^\\s\\[]+)(?:\\[)?",
+      "end": "(?:\\])?$",
+      "beginCaptures": {
+        "1": { "name": "markup.underline.link.riteplain" },
+        "2": { "name": "markup.underline.link.url.riteplain" }
+      },
+      "endCaptures": {
+        "0": { "name": "markup.underline.link.riteplain" }
+      },
+      "contentName": "string.other.link.title.riteplain"
+    },
+    "image": {
+      "begin": "^(image::)(slot-\\d+)(?:\\[)?",
+      "end": "(?:\\])?$",
+      "beginCaptures": {
+        "1": { "name": "keyword.control.image.riteplain" },
+        "2": { "name": "string.other.image.slot.riteplain" }
+      },
+      "endCaptures": {
+        "0": { "name": "keyword.control.image.riteplain" }
+      },
+      "contentName": "string.other.image.caption.riteplain"
+    },
+    "video": {
+      "begin": "^(video::)([^\\s\\[]+)(?:\\[)?",
+      "end": "(?:\\])?$",
+      "beginCaptures": {
+        "1": { "name": "keyword.control.video.riteplain" },
+        "2": { "name": "string.other.video.id.riteplain" }
+      },
+      "endCaptures": {
+        "0": { "name": "keyword.control.video.riteplain" }
+      },
+      "contentName": "string.other.video.type.riteplain"
+    },
+    "supplement": {
+      "match": "^(\\|)(.*)$",
+      "captures": {
+        "1": { "name": "punctuation.definition.quote.begin.riteplain" },
+        "2": { "name": "markup.quote.riteplain" }
+      }
+    },
+    "horizontal_rule": {
+      "match": "^---+$",
+      "name": "meta.separator.riteplain"
+    },
+    "comment": {
+      "match": "//.*$",
+      "name": "comment.line.double-slash.riteplain"
+    },
+    "continuation": {
+      "match": "\\+$",
+      "name": "punctuation.separator.continuation.riteplain"
+    }
+  }
+}

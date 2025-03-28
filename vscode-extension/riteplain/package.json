@@ -1,0 +1,156 @@
+{
+  "name": "riteplain",
+  "displayName": "RitePlain",
+  "description": "RitePlain markup language support for VS Code",
+  "version": "0.1.0",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": ["Programming Languages", "Snippets", "Formatters"],
+  "activationEvents": ["onLanguage:riteplain"],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "riteplain",
+        "aliases": ["RitePlain", "riteplain"],
+        "extensions": [".rp", ".riteplain", ".txt"],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "riteplain",
+        "scopeName": "text.riteplain",
+        "path": "./syntaxes/riteplain.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "riteplain",
+        "path": "./snippets/riteplain.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "riteplain.insertHeading1",
+        "title": "RitePlain: Insert Heading 1"
+      },
+      {
+        "command": "riteplain.insertHeading2",
+        "title": "RitePlain: Insert Heading 2"
+      },
+      {
+        "command": "riteplain.insertHeading3",
+        "title": "RitePlain: Insert Heading 3"
+      },
+      {
+        "command": "riteplain.insertBold",
+        "title": "RitePlain: Insert Bold"
+      },
+      {
+        "command": "riteplain.insertUnorderedList",
+        "title": "RitePlain: Insert Unordered List"
+      },
+      {
+        "command": "riteplain.insertOrderedList",
+        "title": "RitePlain: Insert Ordered List"
+      },
+      {
+        "command": "riteplain.insertLink",
+        "title": "RitePlain: Insert Link"
+      },
+      {
+        "command": "riteplain.insertImage",
+        "title": "RitePlain: Insert Image"
+      },
+      {
+        "command": "riteplain.insertYoutubeVideo",
+        "title": "RitePlain: Insert YouTube Video"
+      },
+      {
+        "command": "riteplain.insertSupplement",
+        "title": "RitePlain: Insert Supplement"
+      },
+      {
+        "command": "riteplain.insertHorizontalRule",
+        "title": "RitePlain: Insert Horizontal Rule"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "riteplain.insertHeading1",
+        "key": "ctrl+1",
+        "mac": "cmd+1",
+        "when": "editorLangId == riteplain"
+      },
+      {
+        "command": "riteplain.insertHeading2",
+        "key": "ctrl+2",
+        "mac": "cmd+2",
+        "when": "editorLangId == riteplain"
+      },
+      {
+        "command": "riteplain.insertHeading3",
+        "key": "ctrl+3",
+        "mac": "cmd+3",
+        "when": "editorLangId == riteplain"
+      },
+      {
+        "command": "riteplain.insertBold",
+        "key": "ctrl+b",
+        "mac": "cmd+b",
+        "when": "editorLangId == riteplain"
+      },
+      {
+        "command": "riteplain.insertUnorderedList",
+        "key": "ctrl+shift+u",
+        "mac": "cmd+shift+u",
+        "when": "editorLangId == riteplain"
+      },
+      {
+        "command": "riteplain.insertLink",
+        "key": "ctrl+k",
+        "mac": "cmd+k",
+        "when": "editorLangId == riteplain"
+      }
+    ],
+    "configuration": {
+      "title": "RitePlain",
+      "properties": {
+        "riteplain.enableFormatting": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable auto-formatting for RitePlain files"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.60.0",
+    "@types/glob": "^8.1.0",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "16.x",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.39.0",
+    "glob": "^8.1.0",
+    "mocha": "^10.2.0",
+    "typescript": "^5.0.4",
+    "ts-loader": "^9.4.2",
+    "webpack": "^5.81.0",
+    "webpack-cli": "^5.0.2",
+    "@vscode/test-electron": "^2.3.0"
+  }
+}

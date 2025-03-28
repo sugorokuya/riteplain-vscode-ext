@@ -1,0 +1,87 @@
+{
+  "Heading 1": {
+    "prefix": "h1",
+    "body": ["# ${1:Heading 1}"],
+    "description": "Heading level 1"
+  },
+  "Heading 2": {
+    "prefix": "h2",
+    "body": ["## ${1:Heading 2}"],
+    "description": "Heading level 2"
+  },
+  "Heading 3": {
+    "prefix": "h3",
+    "body": ["### ${1:Heading 3}"],
+    "description": "Heading level 3"
+  },
+  "Bold Text": {
+    "prefix": "bold",
+    "body": ["[[${1:Bold text}]]"],
+    "description": "Bold text"
+  },
+  "Unordered List Item": {
+    "prefix": "ul",
+    "body": ["* ${1:List item}"],
+    "description": "Unordered list item"
+  },
+  "Ordered List Item": {
+    "prefix": "ol",
+    "body": [". ${1:List item}"],
+    "description": "Ordered list item"
+  },
+  "Nested Unordered List Item": {
+    "prefix": "uli",
+    "body": ["** ${1:Nested item}"],
+    "description": "Nested unordered list item"
+  },
+  "Nested Ordered List Item": {
+    "prefix": "oli",
+    "body": [".. ${1:Nested item}"],
+    "description": "Nested ordered list item"
+  },
+  "Definition List Item": {
+    "prefix": "dl",
+    "body": ["${1:Term}:: ${2:Definition}"],
+    "description": "Definition list item"
+  },
+  "Link": {
+    "prefix": "link",
+    "body": ["link:${1:https://example.com}[${2:Link text}]"],
+    "description": "Link with text"
+  },
+  "Image": {
+    "prefix": "img",
+    "body": ["image::slot-${1:1}[${2:Caption}]"],
+    "description": "Image with caption"
+  },
+  "Image with Size": {
+    "prefix": "imgs",
+    "body": ["image::slot-${1:1}[${2:Caption}, size=${3|small,majority|}]"],
+    "description": "Image with caption and size"
+  },
+  "YouTube Video": {
+    "prefix": "yt",
+    "body": ["video::${1:VIDEO_ID}[youtube]"],
+    "description": "YouTube video"
+  },
+  "Supplement": {
+    "prefix": "sup",
+    "body": ["|${1:Supplemental note}"],
+    "description": "Supplemental note"
+  },
+  "Horizontal Rule": {
+    "prefix": "hr",
+    "body": ["---"],
+    "description": "Horizontal rule"
+  },
+  "Comment": {
+    "prefix": "//",
+    "body": ["// ${1:Comment}"],
+    "description": "Comment"
+  },
+  "Line Continuation": {
+    "prefix": "+",
+    "body": ["${1:Text}+"],
+    "description": "Line continuation"
+  }
+}
