@@ -2,8 +2,8 @@
   "name": "riteplain",
   "displayName": "RitePlain",
   "description": "RitePlain markup language support for VS Code",
-  "version": "0.1.0",
-  "publisher": "sugorokuya",
+  "version": "0.1.4",
+  "publisher": "SUGOROKUYA Co., Ltd.",
   "repository": {
     "type": "git",
     "url": "https://github.com/sugorokuya/riteplain-vscode-ext"
@@ -139,6 +139,12 @@
         "command": "riteplain.insertHorizontalRule",
         "key": "ctrl+shift+-",
         "mac": "cmd+shift+-",
+        "when": "editorLangId == riteplain"
+      },
+      {
+        "command": "riteplain.insertSupplement",
+        "key": "ctrl+shift+\\",
+        "mac": "cmd+shift+\\",
         "when": "editorLangId == riteplain"
       },
       {
