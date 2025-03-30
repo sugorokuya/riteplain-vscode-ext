@@ -41,7 +41,7 @@ export function activate(context: vscode.ExtensionContext) {
       if (isAtLineStart(editor, position)) {
         editBuilder.insert(position, text)
       } else {
-        editBuilder.insert(position, `\\n${text}`)
+        editBuilder.insert(position, `\n${text}`)
       }
     })
   }
@@ -58,15 +58,15 @@ export function activate(context: vscode.ExtensionContext) {
       } else {
         const text = editor.document.getText(selection)
         editor.edit(editBuilder => {
-          const lines = text.split('\\n')
+          const lines = text.split('\n')
           const newLines = lines.map(line => {
             if (line.trim() === '') return line
-            if (line.match(/^#{1,3}\\s+/)) {
-              return line.replace(/^#{1,3}\\s+/, '# ')
+            if (line.match(/^#{1,3}\s+/)) {
+              return line.replace(/^#{1,3}\s+/, '# ')
             }
             return `# ${line}`
           })
-          editBuilder.replace(selection, newLines.join('\\n'))
+          editBuilder.replace(selection, newLines.join('\n'))
         })
       }
     }),
@@ -84,15 +84,15 @@ export function activate(context: vscode.ExtensionContext) {
       } else {
         const text = editor.document.getText(selection)
         editor.edit(editBuilder => {
-          const lines = text.split('\\n')
+          const lines = text.split('\n')
           const newLines = lines.map(line => {
             if (line.trim() === '') return line
-            if (line.match(/^#{1,3}\\s+/)) {
-              return line.replace(/^#{1,3}\\s+/, '## ')
+            if (line.match(/^#{1,3}\s+/)) {
+              return line.replace(/^#{1,3}\s+/, '## ')
             }
             return `## ${line}`
           })
-          editBuilder.replace(selection, newLines.join('\\n'))
+          editBuilder.replace(selection, newLines.join('\n'))
         })
       }
     }),
@@ -110,15 +110,15 @@ export function activate(context: vscode.ExtensionContext) {
       } else {
         const text = editor.document.getText(selection)
         editor.edit(editBuilder => {
-          const lines = text.split('\\n')
+          const lines = text.split('\n')
           const newLines = lines.map(line => {
             if (line.trim() === '') return line
-            if (line.match(/^#{1,3}\\s+/)) {
-              return line.replace(/^#{1,3}\\s+/, '### ')
+            if (line.match(/^#{1,3}\s+/)) {
+              return line.replace(/^#{1,3}\s+/, '### ')
             }
             return `### ${line}`
           })
-          editBuilder.replace(selection, newLines.join('\\n'))
+          editBuilder.replace(selection, newLines.join('\n'))
         })
       }
     }),
@@ -145,7 +145,7 @@ export function activate(context: vscode.ExtensionContext) {
           })
       } else {
         const text = editor.document.getText(selection)
-        const boldMatch = text.match(/^\\[\\[(.*)\\]\\]$/)
+        const boldMatch = text.match(/^\[\[(.*)\]\]$/)
 
         if (boldMatch) {
           // すでに太字になっている場合、太字を解除
@@ -174,10 +174,10 @@ export function activate(context: vscode.ExtensionContext) {
       } else {
         const text = editor.document.getText(selection)
         editor.edit(editBuilder => {
-          const lines = text.split('\\n')
+          const lines = text.split('\n')
           const newLines = lines.map(line => {
             if (line.trim() === '') return line
-            const listMatch = line.match(/^(\\s*)(\\*+|\\.*)(\\s+)(.*)$/)
+            const listMatch = line.match(/^(\s*)(\*+|\.+)(\s+)(.*)$/)
 
             if (listMatch) {
               // すでにリストの場合、*を追加または削除
@@ -189,7 +189,7 @@ export function activate(context: vscode.ExtensionContext) {
             }
             return `* ${line}`
           })
-          editBuilder.replace(selection, newLines.join('\\n'))
+          editBuilder.replace(selection, newLines.join('\n'))
         })
       }
     }),
@@ -207,10 +207,10 @@ export function activate(context: vscode.ExtensionContext) {
       } else {
         const text = editor.document.getText(selection)
         editor.edit(editBuilder => {
-          const lines = text.split('\\n')
+          const lines = text.split('\n')
           const newLines = lines.map(line => {
             if (line.trim() === '') return line
-            const listMatch = line.match(/^(\\s*)(\\*+|\\.*)(\\s+)(.*)$/)
+            const listMatch = line.match(/^(\s*)(\*+|\.+)(\s+)(.*)$/)
 
             if (listMatch) {
               // すでにリストの場合、.を追加または削除
@@ -222,7 +222,7 @@ export function activate(context: vscode.ExtensionContext) {
             }
             return `. ${line}`
           })
-          editBuilder.replace(selection, newLines.join('\\n'))
+          editBuilder.replace(selection, newLines.join('\n'))
         })
       }
     }),
@@ -260,14 +260,14 @@ export function activate(context: vscode.ExtensionContext) {
           if (atLineStart) {
             editBuilder.replace(selection, linkMarkup)
           } else {
-            editBuilder.replace(selection, `\\n${linkMarkup}`)
+            editBuilder.replace(selection, `\n${linkMarkup}`)
           }
         } else {
           const linkMarkup = `link:${url}`
           if (atLineStart) {
             editBuilder.replace(selection, linkMarkup)
           } else {
-            editBuilder.replace(selection, `\\n${linkMarkup}`)
+            editBuilder.replace(selection, `\n${linkMarkup}`)
           }
         }
       })
@@ -284,7 +284,7 @@ export function activate(context: vscode.ExtensionContext) {
         placeHolder: '1',
         prompt: 'Enter image slot number',
         validateInput: value => {
-          return /^\\d+$/.test(value) ? null : 'Please enter a valid number'
+          return /^\d+$/.test(value) ? null : 'Please enter a valid number'
         },
       })
 
@@ -307,9 +307,9 @@ export function activate(context: vscode.ExtensionContext) {
         }
 
         if (atLineStart) {
-          editBuilder.insert(position, `${imageMarkup}\\n`)
+          editBuilder.insert(position, `${imageMarkup}\n`)
         } else {
-          editBuilder.insert(position, `\\n${imageMarkup}\\n`)
+          editBuilder.insert(position, `\n${imageMarkup}\n`)
         }
       })
     }),
@@ -350,9 +350,9 @@ export function activate(context: vscode.ExtensionContext) {
           }
 
           if (atLineStart) {
-            editBuilder.insert(position, `${videoMarkup}\\n`)
+            editBuilder.insert(position, `${videoMarkup}\n`)
           } else {
-            editBuilder.insert(position, `\\n${videoMarkup}\\n`)
+            editBuilder.insert(position, `\n${videoMarkup}\n`)
           }
         })
       },
@@ -385,7 +385,7 @@ export function activate(context: vscode.ExtensionContext) {
         if (atLineStart) {
           editBuilder.replace(selection, supplementMarkup)
         } else {
-          editBuilder.replace(selection, `\\n${supplementMarkup}`)
+          editBuilder.replace(selection, `\n${supplementMarkup}`)
         }
       })
     }),
@@ -402,9 +402,9 @@ export function activate(context: vscode.ExtensionContext) {
 
       editor.edit(editBuilder => {
         if (atLineStart) {
-          editBuilder.insert(position, '---\\n')
+          editBuilder.insert(position, '---\n')
         } else {
-          editBuilder.insert(position, '\\n---\\n')
+          editBuilder.insert(position, '\n---\n')
         }
       })
     }),

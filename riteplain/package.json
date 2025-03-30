@@ -14,7 +14,7 @@
       {
         "id": "riteplain",
         "aliases": ["RitePlain", "riteplain"],
-        "extensions": [".rp", ".riteplain", ".txt"],
+        "extensions": [".rp", ".riteplain", ".txt", ".rite"],
         "configuration": "./language-configuration.json"
       }
     ],
