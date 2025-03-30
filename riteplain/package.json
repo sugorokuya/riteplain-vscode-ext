@@ -81,6 +81,10 @@
       {
         "command": "riteplain.insertHorizontalRule",
         "title": "RitePlain: Insert Horizontal Rule"
+      },
+      {
+        "command": "riteplain.increaseListLevel",
+        "title": "RitePlain: Increase List Indentation Level"
       }
     ],
     "keybindings": [
@@ -110,8 +114,8 @@
       },
       {
         "command": "riteplain.insertUnorderedList",
-        "key": "ctrl+shift+u",
-        "mac": "cmd+shift+u",
+        "key": "ctrl+shift+8",
+        "mac": "cmd+shift+8",
         "when": "editorLangId == riteplain"
       },
       {
@@ -119,6 +123,17 @@
         "key": "ctrl+k",
         "mac": "cmd+k",
         "when": "editorLangId == riteplain"
+      },
+      {
+        "command": "riteplain.insertOrderedList",
+        "key": "ctrl+.",
+        "mac": "cmd+.",
+        "when": "editorLangId == riteplain"
+      },
+      {
+        "command": "riteplain.increaseListLevel",
+        "key": "tab",
+        "when": "editorLangId == riteplain && editorTextFocus && !editorReadonly && editorHasSelection == false"
       }
     ],
     "configuration": {
