@@ -2,7 +2,8 @@
   "name": "riteplain",
   "displayName": "RitePlain",
   "description": "RitePlain markup language support for VS Code",
-  "version": "0.1.5",
+  "version": "0.2.0",
+  "icon": "icon.png",
   "publisher": "SUGOROKUYA Co., Ltd.",
   "repository": {
     "type": "git",

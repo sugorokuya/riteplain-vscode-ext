@@ -103,6 +103,6 @@ This extension contributes the following settings:
 
 ## Release Notes
 
-### 0.1.4
+### 0.2.0
 
 Initial release of RitePlain extension.
