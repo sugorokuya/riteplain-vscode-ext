@@ -41,7 +41,7 @@ export function activate(context: vscode.ExtensionContext) {
       if (isAtLineStart(editor, position)) {
         editBuilder.insert(position, text)
       } else {
-        editBuilder.insert(position, '\\n' + text)
+        editBuilder.insert(position, `\\n${text}`)
       }
     })
   }
@@ -64,7 +64,7 @@ export function activate(context: vscode.ExtensionContext) {
             if (line.match(/^#{1,3}\\s+/)) {
               return line.replace(/^#{1,3}\\s+/, '# ')
             }
-            return '# ' + line
+            return `# ${line}`
           })
           editBuilder.replace(selection, newLines.join('\\n'))
         })
@@ -90,7 +90,7 @@ export function activate(context: vscode.ExtensionContext) {
             if (line.match(/^#{1,3}\\s+/)) {
               return line.replace(/^#{1,3}\\s+/, '## ')
             }
-            return '## ' + line
+            return `## ${line}`
           })
           editBuilder.replace(selection, newLines.join('\\n'))
         })
@@ -116,7 +116,7 @@ export function activate(context: vscode.ExtensionContext) {
             if (line.match(/^#{1,3}\\s+/)) {
               return line.replace(/^#{1,3}\\s+/, '### ')
             }
-            return '### ' + line
+            return `### ${line}`
           })
           editBuilder.replace(selection, newLines.join('\\n'))
         })
@@ -155,7 +155,7 @@ export function activate(context: vscode.ExtensionContext) {
         } else {
           // 太字化
           editor.edit(editBuilder => {
-            editBuilder.replace(selection, '[[' + text + ']]')
+            editBuilder.replace(selection, `[[${text}]]`)
           })
         }
       }
@@ -183,19 +183,11 @@ export function activate(context: vscode.ExtensionContext) {
               // すでにリストの場合、*を追加または削除
               if (listMatch[2].startsWith('*')) {
                 // *で始まるリストの場合、*を追加
-                return (
-                  listMatch[1] +
-                  '*' +
-                  listMatch[2] +
-                  listMatch[3] +
-                  listMatch[4]
-                )
-              } else {
-                return listMatch[1] + '*' + listMatch[3] + listMatch[4]
+                return `${listMatch[1]}*${listMatch[2]}${listMatch[3]}${listMatch[4]}`
               }
-            } else {
-              return '* ' + line
+              return `${listMatch[1]}*${listMatch[3]}${listMatch[4]}`
             }
+            return `* ${line}`
           })
           editBuilder.replace(selection, newLines.join('\\n'))
         })
@@ -224,19 +216,11 @@ export function activate(context: vscode.ExtensionContext) {
               // すでにリストの場合、.を追加または削除
               if (listMatch[2].startsWith('.')) {
                 // .で始まるリストの場合、.を追加
-                return (
-                  listMatch[1] +
-                  '.' +
-                  listMatch[2] +
-                  listMatch[3] +
-                  listMatch[4]
-                )
-              } else {
-                return listMatch[1] + '.' + listMatch[3] + listMatch[4]
+                return `${listMatch[1]}.${listMatch[2]}${listMatch[3]}${listMatch[4]}`
               }
-            } else {
-              return '. ' + line
+              return `${listMatch[1]}.${listMatch[3]}${listMatch[4]}`
             }
+            return `. ${line}`
           })
           editBuilder.replace(selection, newLines.join('\\n'))
         })
@@ -276,14 +260,14 @@ export function activate(context: vscode.ExtensionContext) {
           if (atLineStart) {
             editBuilder.replace(selection, linkMarkup)
           } else {
-            editBuilder.replace(selection, '\\n' + linkMarkup)
+            editBuilder.replace(selection, `\\n${linkMarkup}`)
           }
         } else {
           const linkMarkup = `link:${url}`
           if (atLineStart) {
             editBuilder.replace(selection, linkMarkup)
           } else {
-            editBuilder.replace(selection, '\\n' + linkMarkup)
+            editBuilder.replace(selection, `\\n${linkMarkup}`)
           }
         }
       })
@@ -315,7 +299,7 @@ export function activate(context: vscode.ExtensionContext) {
       const atLineStart = isAtLineStart(editor, position)
 
       editor.edit(editBuilder => {
-        let imageMarkup
+        let imageMarkup: string
         if (caption) {
           imageMarkup = `image::slot-${slotNumber}[${caption}]`
         } else {
@@ -323,9 +307,9 @@ export function activate(context: vscode.ExtensionContext) {
         }
 
         if (atLineStart) {
-          editBuilder.insert(position, imageMarkup + '\\n')
+          editBuilder.insert(position, `${imageMarkup}\\n`)
         } else {
-          editBuilder.insert(position, '\\n' + imageMarkup + '\\n')
+          editBuilder.insert(position, `\\n${imageMarkup}\\n`)
         }
       })
     }),
@@ -349,16 +333,26 @@ export function activate(context: vscode.ExtensionContext) {
 
         if (!videoId) return
 
+        const videoCaption = await vscode.window.showInputBox({
+          placeHolder: '動画キャプション（任意）',
+          prompt: '動画のキャプションを入力（省略可）',
+        })
+
         const position = editor.selection.active
         const atLineStart = isAtLineStart(editor, position)
 
         editor.edit(editBuilder => {
-          const videoMarkup = `video::${videoId}[youtube]`
+          let videoMarkup: string
+          if (videoCaption) {
+            videoMarkup = `video::youtube:${videoId}[${videoCaption}]`
+          } else {
+            videoMarkup = `video::youtube:${videoId}`
+          }
 
           if (atLineStart) {
-            editBuilder.insert(position, videoMarkup + '\\n')
+            editBuilder.insert(position, `${videoMarkup}\\n`)
           } else {
-            editBuilder.insert(position, '\\n' + videoMarkup + '\\n')
+            editBuilder.insert(position, `\\n${videoMarkup}\\n`)
           }
         })
       },
@@ -391,7 +385,7 @@ export function activate(context: vscode.ExtensionContext) {
         if (atLineStart) {
           editBuilder.replace(selection, supplementMarkup)
         } else {
-          editBuilder.replace(selection, '\\n' + supplementMarkup)
+          editBuilder.replace(selection, `\\n${supplementMarkup}`)
         }
       })
     }),

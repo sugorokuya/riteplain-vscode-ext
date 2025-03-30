@@ -61,8 +61,13 @@
   },
   "YouTube Video": {
     "prefix": "yt",
-    "body": ["video::${1:VIDEO_ID}[youtube]"],
-    "description": "YouTube video"
+    "body": ["video::youtube:${1:VIDEO_ID}[${2:キャプション}]"],
+    "description": "YouTube video with caption"
+  },
+  "YouTube Video (No Caption)": {
+    "prefix": "ytb",
+    "body": ["video::youtube:${1:VIDEO_ID}"],
+    "description": "YouTube video without caption"
   },
   "Supplement": {
     "prefix": "sup",
