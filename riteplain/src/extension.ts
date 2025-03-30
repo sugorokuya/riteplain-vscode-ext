@@ -461,6 +461,77 @@ export function activate(context: vscode.ExtensionContext) {
       // リスト行でない場合は何もしない
     }),
   )
+
+  // カスタムEnterキー処理
+  context.subscriptions.push(
+    vscode.commands.registerCommand('riteplain.handleEnterKey', () => {
+      const editor = vscode.window.activeTextEditor
+      if (!editor) {
+        // エディタがない場合はデフォルトのEnterキー動作を実行
+        vscode.commands.executeCommand('default:type', { text: '\n' })
+        return
+      }
+
+      const position = editor.selection.active
+      const lineNumber = position.line
+      const lineText = editor.document.lineAt(lineNumber).text
+      const textBeforeCursor = lineText.substring(0, position.character)
+      const textAfterCursor = lineText.substring(position.character)
+
+      // 箇条書きリストまたは連番リストかどうかを判定
+      const unorderedListMatch = textBeforeCursor.match(/^(\s*)(\*+)(\s+)(.*)$/)
+      const orderedListMatch = textBeforeCursor.match(/^(\s*)(\.+)(\s+)(.*)$/)
+
+      // カーソル位置までのテキストがリストマーカーと空白だけかどうか
+      const isListMarkerOnly = (match: RegExpMatchArray) => {
+        // リストマーカーと空白の後に追加のテキストがあるか確認
+        // match[4]はリストマーカーの後のコンテンツ
+        return match[4] === undefined || match[4] === ''
+      }
+
+      if (unorderedListMatch || orderedListMatch) {
+        const match = unorderedListMatch || orderedListMatch
+        if (match) {
+          const indentation = match[1]      // 行頭の空白
+          const listMarker = match[2]       // * または . の連続
+          const spacesAfter = match[3]      // リストマーカー後の空白
+
+          // カーソル位置がリストマーカーの直後の場合（テキストがない場合）
+          if (isListMarkerOnly(match)) {
+          // リストマーカーを削除し、残りのテキストを行頭に移動
+          editor.edit(editBuilder => {
+            // 行全体を削除してtextAfterCursorを挿入
+            const lineRange = new vscode.Range(
+              new vscode.Position(lineNumber, 0),
+              new vscode.Position(lineNumber, lineText.length)
+            )
+            editBuilder.replace(lineRange, textAfterCursor)
+          })
+          } else {
+            // カーソル位置でテキストを分割し、2行目にも同じリストマーカーを付ける
+            const fullListMarker = `${indentation}${listMarker}${spacesAfter}`
+            
+            editor.edit(editBuilder => {
+              // カーソル位置に新しい行を挿入し、同じリストマーカーを付け、カーソル以降のテキストを移動
+              editBuilder.insert(position, `\n${fullListMarker}`)
+              
+              // カーソル位置をリストマーカーの直後に設定
+              const newPosition = new vscode.Position(
+                lineNumber + 1,
+                fullListMarker.length
+              )
+              
+              // 選択範囲を新しい位置に設定（即時には反映されないので注意）
+              editor.selection = new vscode.Selection(newPosition, newPosition)
+            })
+          }
+        }
+      } else {
+        // リスト行でない場合は通常の改行を実行
+        vscode.commands.executeCommand('default:type', { text: '\n' })
+      }
+    }),
+  )
 }
 
 export function deactivate() {}

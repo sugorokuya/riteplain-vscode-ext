@@ -2,7 +2,7 @@
   "name": "riteplain",
   "displayName": "RitePlain",
   "description": "RitePlain markup language support for VS Code",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "publisher": "SUGOROKUYA Co., Ltd.",
   "repository": {
     "type": "git",
@@ -85,6 +85,10 @@
       {
         "command": "riteplain.increaseListLevel",
         "title": "RitePlain: Increase List Indentation Level"
+      },
+      {
+        "command": "riteplain.handleEnterKey",
+        "title": "RitePlain: Smart Enter Key Handling"
       }
     ],
     "keybindings": [
@@ -146,6 +150,11 @@
         "key": "ctrl+shift+\\",
         "mac": "cmd+shift+\\",
         "when": "editorLangId == riteplain"
+      },
+      {
+        "command": "riteplain.handleEnterKey",
+        "key": "enter",
+        "when": "editorLangId == riteplain && editorTextFocus && !editorReadonly && !suggestWidgetVisible && !renameInputVisible && !editorHasMultipleSelections"
       },
       {
         "command": "riteplain.insertImage",
