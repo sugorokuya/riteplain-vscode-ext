@@ -583,30 +583,35 @@ export function activate(context: vscode.ExtensionContext) {
 
           // カーソル位置がリストマーカーの直後の場合（テキストがない場合）
           if (isListMarkerOnly(match)) {
-          // リストマーカーを削除し、残りのテキストを行頭に移動
-          editor.edit(editBuilder => {
-            // 行全体を削除してtextAfterCursorを挿入
-            const lineRange = new vscode.Range(
-              new vscode.Position(lineNumber, 0),
-              new vscode.Position(lineNumber, lineText.length)
-            )
-            editBuilder.replace(lineRange, textAfterCursor)
-          })
+            // リストマーカーを削除し、残りのテキストを行頭に移動
+            editor.edit(editBuilder => {
+              // 行全体を削除してtextAfterCursorを挿入
+              const lineRange = new vscode.Range(
+                new vscode.Position(lineNumber, 0),
+                new vscode.Position(lineNumber, lineText.length)
+              )
+              editBuilder.replace(lineRange, textAfterCursor)
+            }).then(() => {
+              // 修正2: カーソル位置を行頭に設定
+              const newPosition = new vscode.Position(lineNumber, 0)
+              editor.selection = new vscode.Selection(newPosition, newPosition)
+            })
           } else {
             // カーソル位置でテキストを分割し、2行目にも同じリストマーカーを付ける
             const fullListMarker = `${indentation}${listMarker}${spacesAfter}`
             
+            // カーソル前後のテキストを分離
+            const textBeforeWithoutMarker = match[4] // リストマーカー後のテキスト
+            
             editor.edit(editBuilder => {
               // カーソル位置に新しい行を挿入し、同じリストマーカーを付け、カーソル以降のテキストを移動
               editBuilder.insert(position, `\n${fullListMarker}`)
-              
-              // カーソル位置をリストマーカーの直後に設定
+            }).then(() => {
+              // 修正1: カーソル位置を2行目の内容の先頭に設定
               const newPosition = new vscode.Position(
-                lineNumber + 1,
+                lineNumber + 1, 
                 fullListMarker.length
               )
-              
-              // 選択範囲を新しい位置に設定（即時には反映されないので注意）
               editor.selection = new vscode.Selection(newPosition, newPosition)
             })
           }
