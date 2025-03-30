@@ -361,32 +361,27 @@ export function activate(context: vscode.ExtensionContext) {
 
   // 補足の挿入
   context.subscriptions.push(
-    vscode.commands.registerCommand('riteplain.insertSupplement', async () => {
+    vscode.commands.registerCommand('riteplain.insertSupplement', () => {
       const editor = vscode.window.activeTextEditor
       if (!editor) return
 
-      const selection = editor.selection
-      const text = editor.document.getText(selection)
-
-      const supplementText = await vscode.window.showInputBox({
-        placeHolder: 'Supplemental note',
-        prompt: 'Enter supplement text',
-        value: text,
-      })
-
-      if (!supplementText) return
-
-      const position = selection.active
+      const position = editor.selection.active
       const atLineStart = isAtLineStart(editor, position)
 
       editor.edit(editBuilder => {
-        const supplementMarkup = `|${supplementText}`
-
+        // カーソル位置に | と空白を挿入する
         if (atLineStart) {
-          editBuilder.replace(selection, supplementMarkup)
+          editBuilder.insert(position, '| ')
         } else {
-          editBuilder.replace(selection, `\n${supplementMarkup}`)
+          editBuilder.insert(position, '\n| ')
         }
+      }).then(() => {
+        // カーソルを | の後ろに移動
+        const newPosition = new vscode.Position(
+          atLineStart ? position.line : position.line + 1,
+          atLineStart ? 2 : 2
+        )
+        editor.selection = new vscode.Selection(newPosition, newPosition)
       })
     }),
   )
