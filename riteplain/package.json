@@ -3,6 +3,12 @@
   "displayName": "RitePlain",
   "description": "RitePlain markup language support for VS Code",
   "version": "0.1.0",
+  "publisher": "sugorokuya",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sugorokuya/riteplain-vscode-ext"
+  },
+  "license": "MIT",
   "engines": {
     "vscode": "^1.60.0"
   },
