@@ -1,10 +1,10 @@
 # RitePlain VS Code Extension
 
-このディレクトリには、RitePlain（プレイズ執筆用軽量マークアップ言語）のVisual Studio Code拡張機能が含まれています。
+このディレクトリには、軽量マークアップ言語RitePlain(ライトプレーン)のVisual Studio Code拡張機能が含まれています。
 
 ## 概要
 
-RitePlain拡張機能は、すごろくやのソーシャルメディア統合型ボードゲームECサイト「SUPPE」でのプレイズ執筆にあたり、Visual Studio Codeを使用してRitePlain形式でコンテンツを効率的に作成できるようにするためのものです。
+RitePlain拡張機能は、すごろくやのソーシャルメディア統合型ボードゲームECサイト「SUPPE」でのプレイズ執筆にあたり、Visual Studio Codeを使用してRitePlain形式で記事内容を効率的に作成できるようにするためのものです。
 
 主な機能：
 - RitePlain構文のシンタックスハイライト
@@ -37,7 +37,7 @@ RitePlain拡張機能は、すごろくやのソーシャルメディア統合�
 [[重要なテキスト]]
 ```
 
-### リスト
+### 階層リスト
 ```
 * 箇条書き項目
 ** ネストされた箇条書き項目
