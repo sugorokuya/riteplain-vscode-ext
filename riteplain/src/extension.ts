@@ -462,6 +462,91 @@ export function activate(context: vscode.ExtensionContext) {
     }),
   )
 
+  // リストレベルを減少
+  context.subscriptions.push(
+    vscode.commands.registerCommand('riteplain.decreaseListLevel', () => {
+      const editor = vscode.window.activeTextEditor
+      if (!editor) return
+
+      const position = editor.selection.active
+      const lineNumber = position.line
+      const lineText = editor.document.lineAt(lineNumber).text
+      
+      // リスト行かどうかの判定
+      const unorderedListMatch = lineText.match(/^(\s*)(\*+)(\s+)(.*)$/)
+      const orderedListMatch = lineText.match(/^(\s*)(\.+)(\s+)(.*)$/)
+      
+      if (unorderedListMatch) {
+        // 箇条書きリストの場合
+        const indentation = unorderedListMatch[1]
+        const listMarker = unorderedListMatch[2]
+        const spacesAfter = unorderedListMatch[3]
+        const content = unorderedListMatch[4]
+        
+        if (listMarker.length > 1) {
+          // *が複数ある場合は一つ減らす
+          const newListMarker = listMarker.substring(1)
+          const newLine = `${indentation}${newListMarker}${spacesAfter}${content}`
+          
+          const range = new vscode.Range(
+            new vscode.Position(lineNumber, 0),
+            new vscode.Position(lineNumber, lineText.length)
+          )
+          
+          editor.edit(editBuilder => {
+            editBuilder.replace(range, newLine)
+          })
+        } else {
+          // *が1つの場合はリストマーカーを完全に削除
+          const newLine = `${indentation}${content}`
+          
+          const range = new vscode.Range(
+            new vscode.Position(lineNumber, 0),
+            new vscode.Position(lineNumber, lineText.length)
+          )
+          
+          editor.edit(editBuilder => {
+            editBuilder.replace(range, newLine)
+          })
+        }
+      } else if (orderedListMatch) {
+        // 連番リストの場合
+        const indentation = orderedListMatch[1]
+        const listMarker = orderedListMatch[2]
+        const spacesAfter = orderedListMatch[3]
+        const content = orderedListMatch[4]
+        
+        if (listMarker.length > 1) {
+          // .が複数ある場合は一つ減らす
+          const newListMarker = listMarker.substring(1)
+          const newLine = `${indentation}${newListMarker}${spacesAfter}${content}`
+          
+          const range = new vscode.Range(
+            new vscode.Position(lineNumber, 0),
+            new vscode.Position(lineNumber, lineText.length)
+          )
+          
+          editor.edit(editBuilder => {
+            editBuilder.replace(range, newLine)
+          })
+        } else {
+          // .が1つの場合はリストマーカーを完全に削除
+          const newLine = `${indentation}${content}`
+          
+          const range = new vscode.Range(
+            new vscode.Position(lineNumber, 0),
+            new vscode.Position(lineNumber, lineText.length)
+          )
+          
+          editor.edit(editBuilder => {
+            editBuilder.replace(range, newLine)
+          })
+        }
+      }
+      // リスト行でない場合は何もしない
+    }),
+  )
+
   // カスタムEnterキー処理
   context.subscriptions.push(
     vscode.commands.registerCommand('riteplain.handleEnterKey', () => {

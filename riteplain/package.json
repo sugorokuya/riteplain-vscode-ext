@@ -87,6 +87,10 @@
         "title": "RitePlain: Increase List Indentation Level"
       },
       {
+        "command": "riteplain.decreaseListLevel",
+        "title": "RitePlain: Decrease List Indentation Level"
+      },
+      {
         "command": "riteplain.handleEnterKey",
         "title": "RitePlain: Smart Enter Key Handling"
       }
@@ -137,6 +141,11 @@
       {
         "command": "riteplain.increaseListLevel",
         "key": "tab",
+        "when": "editorLangId == riteplain && editorTextFocus && !editorReadonly && editorHasSelection == false"
+      },
+      {
+        "command": "riteplain.decreaseListLevel",
+        "key": "shift+tab",
         "when": "editorLangId == riteplain && editorTextFocus && !editorReadonly && editorHasSelection == false"
       },
       {
