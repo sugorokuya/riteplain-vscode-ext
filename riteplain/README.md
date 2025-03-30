@@ -61,7 +61,8 @@ image::slot-1[Caption, size=small]
 ### YouTube Videos
 
 ```
-video::VIDEO_ID[youtube]
+video::VIDEO_ID
+video::VIDEO_ID[Caption]
 ```
 
 ### Supplements (Notes)
@@ -81,9 +82,14 @@ video::VIDEO_ID[youtube]
 - `Cmd+1` / `Ctrl+1`: Insert Heading 1
 - `Cmd+2` / `Ctrl+2`: Insert Heading 2
 - `Cmd+3` / `Ctrl+3`: Insert Heading 3
-- `Cmd+B` / `Ctrl+B`: Insert Bold
-- `Cmd+Shift+U` / `Ctrl+Shift+U`: Insert Unordered List
-- `Cmd+K` / `Ctrl+K`: Insert Link
+- `Cmd+Shift+B` / `Ctrl+Shift+B`: Insert Bold
+- `Cmd+Shift+8` / `Ctrl+Shift+8`: Insert Unordered List
+- `Cmd+Shift+.` / `Ctrl+Shift+.`: Insert Ordered List
+- `Tab`: Increase List Level
+- `Cmd+Shift+L` / `Ctrl+Shift+L`: Insert Link
+- `Cmd+Shift+I` / `Ctrl+Shift+I`: Insert Image
+- `Cmd+Shift+V` / `Ctrl+Shift+V`: Insert YouTube Video
+- `Cmd+Shift+\` / `Ctrl+Shift+\`: Insert Supplement
 
 ## Requirements
 
@@ -97,6 +103,6 @@ This extension contributes the following settings:
 
 ## Release Notes
 
-### 0.1.0
+### 0.1.4
 
 Initial release of RitePlain extension.
