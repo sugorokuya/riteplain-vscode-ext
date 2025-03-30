@@ -67,7 +67,7 @@
         "title": "RitePlain: Insert Link"
       },
       {
-        "command": "riteplain.insertImage",
+        "command": "rtieplain.insertImage",
         "title": "RitePlain: Insert Image"
       },
       {
@@ -108,8 +108,8 @@
       },
       {
         "command": "riteplain.insertBold",
-        "key": "ctrl+b",
-        "mac": "cmd+b",
+        "key": "ctrl+shift+b",
+        "mac": "cmd+shift+b",
         "when": "editorLangId == riteplain"
       },
       {
@@ -120,20 +120,38 @@
       },
       {
         "command": "riteplain.insertLink",
-        "key": "ctrl+k",
-        "mac": "cmd+k",
+        "key": "ctrl+shift+l",
+        "mac": "cmd+shift+l",
         "when": "editorLangId == riteplain"
       },
       {
         "command": "riteplain.insertOrderedList",
-        "key": "ctrl+.",
-        "mac": "cmd+.",
+        "key": "ctrl+shift+.",
+        "mac": "cmd+shift+.",
         "when": "editorLangId == riteplain"
       },
       {
         "command": "riteplain.increaseListLevel",
         "key": "tab",
         "when": "editorLangId == riteplain && editorTextFocus && !editorReadonly && editorHasSelection == false"
+      },
+      {
+        "command": "riteplain.insertHorizontalRule",
+        "key": "ctrl+shift+-",
+        "mac": "cmd+shift+-",
+        "when": "editorLangId == riteplain"
+      },
+      {
+        "command": "riteplain.insertImage",
+        "key": "ctrh+shift+i",
+        "mac": "cmd+shift+i",
+        "when": "editorLangId == riteplain"
+      },
+      {
+        "command": "riteplain.insertYoutubeVideo",
+        "key": "ctrh+shift+v",
+        "mac": "cmd+shift+v",
+        "when": "editorLangId == riteplain"
       }
     ],
     "configuration": {
