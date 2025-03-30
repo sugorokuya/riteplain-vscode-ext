@@ -4,7 +4,7 @@
 
 ## 概要
 
-RitePlain拡張機能は、プレイズ執筆者がVisual Studio Codeを使用してRitePlain形式でコンテンツを効率的に作成できるようにするためのものです。
+RitePlain拡張機能は、すごろくやのソーシャルメディア統合型ボードゲームECサイト「SUPPE」でのプレイズ執筆にあたり、Visual Studio Codeを使用してRitePlain形式でコンテンツを効率的に作成できるようにするためのものです。
 
 主な機能：
 - RitePlain構文のシンタックスハイライト
